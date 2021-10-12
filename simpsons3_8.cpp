@@ -49,7 +49,7 @@ int mult = 1;
 
 for (i=0; i<=N; i++) {
   if (i==0 || i==N) {
-    mult = 1;
+    mult = 1;   //first and last iteration
   } else {
     if (i%3==0) {
       mult = 2;

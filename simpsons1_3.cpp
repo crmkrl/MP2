@@ -24,7 +24,6 @@ float fx = 0.0;
 float x_ = 0.0;
 float h = 0.0;
 
-
  cout<<"Enter the precision: ";
  cin>>prec;
  cout<< setprecision(prec)<< fixed;
