@@ -45,7 +45,6 @@ int main()
       float Xi_, Xi__, FXi, FXi_, FXi__;
       float val;
       
-      //Derivative Truncated Version
       cout<< endl<<"********************* Derivative Truncanted Version *********************"<<endl<<endl;
       cout << setw(10) << "Xi" << setw(10) << "Xi+1" << setw(10) << "FXi" << setw(10) << "FXi+1" << setw(10) << "h" << setw(10) << "F'" <<endl;
       for (int it=0; it<n; it++) {
@@ -58,7 +57,6 @@ int main()
         truncF.push_back(val);
       }
 
-      //More Accurate Version
       cout<< endl<<"********************* More Accurate Version *********************"<<endl<<endl;
       cout << setw(10) << "Xi" << setw(10) << "Xi+1" << setw(10) << "Xi+2" << setw(10) << "FXi" << setw(10) << "FXi+1" << setw(10) << "FXi+2" << setw(10) << "h" << setw(10) << "F'" <<endl;
       for (int it=0; it<n; it++) {
@@ -74,16 +72,19 @@ int main()
       }
 
       cout<< endl<<"***************************************************************"<<endl<<endl;
-      cout << setw(10) << "Truncated" << "\t" << setw(10) << "Accurate" << "\tRichardson's Interpolation" <<endl;
+      cout << setw(10) << "Truncated" << "\t" << "\tRichardson's Interpolation" <<endl;
+      std::vector<float> richardsons;
       for (int it=0; it<n; it++) {
-        float X0;
-        if (it==(n-1)) {   //last iteration
-          X0 = roundoff(0, prec);
-        } else {
-          X0 = roundoff(((4*truncF[it+1])/3)-(truncF[it]/3),prec);
-        }
+          float X0;
+          if (it==(n-1)) {   //last iteration
+            X0 = roundoff(((4*richardsons[it-1])/3)-(richardsons[it-2]/3),prec);
+            richardsons.push_back(X0);
+          } else {
+            X0 = roundoff(((4*truncF[it+1])/3)-(truncF[it]/3),prec);
+            richardsons.push_back(X0);
+          }
 
-        cout << setw(10) << truncF[it] << "\t" << setw(10) << accF[it] << "\t" << X0 << endl;
+          cout << setw(10) << truncF[it] << setw(10) << "\t" << richardsons[it] << endl;
       }
 
       cout<<endl;
