@@ -73,16 +73,19 @@ int main()
     }
 
     cout<< endl<<"***************************************************************"<<endl<<endl;
-    cout << setw(10) << "Truncated" << "\t" << setw(10) << "Accurate" << "\tRichardson's Interpolation" << endl<<endl;
+    cout << setw(10) << "Truncated" << "\t" << "\tRichardson's Interpolation" << endl<<endl;
+    std::vector<float> richardsons;
     for (int it=0; it<n; it++) {
         float X0;
         if (it==(n-1)) {   //last iteration
-          X0 = roundoff(0, prec);
+          X0 = roundoff(((4*richardsons[it-1])/3)-(richardsons[it-2]/3),prec);
+          richardsons.push_back(X0);
         } else {
           X0 = roundoff(((4*truncF[it+1])/3)-(truncF[it]/3),prec);
+          richardsons.push_back(X0);
         }
 
-        cout << setw(10) << truncF[it] << "\t" << setw(10) << accF[it] << "\t" << X0 << endl;
+        cout << setw(10) << truncF[it] << setw(10) << "\t" << richardsons[it] << endl;
     }
  return 0;
 }
